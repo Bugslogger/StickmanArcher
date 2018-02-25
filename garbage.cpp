@@ -8,12 +8,13 @@ float RotA=Rot;
 const int Bodyy=100;
 const int ARROWX=100;
 const int ARROWY=20;
-const int WINSIZEX=600;
-const int WINSIZEY=400;
+const int WINSIZEX=1000;
+const int WINSIZEY=600;
 bool isKeyBoardPressed=false;
 float xComp;
 float yComp;
-float initialVelocity=1;
+float initialVelocityY=2.2;
+float initialVelocity=2.0;
 int n=0;//n is the equivalent of time
 
 int main()
@@ -33,13 +34,8 @@ int main()
     arrow.setFillColor(sf::Color::Red);
     arrow.setPosition(100,350);
 
-
-  sf::Image image;
-    //image.loadFromFile("stickman.png");
     sf::Texture texture;
-
-    sf::Sprite sprite(texture);
-//    texture.loadFromFile("D:/proj/GarbageSFML/images/stickman.png");
+    texture.loadFromFile("stickman.png",sf::IntRect(20,20,32,32));
 
     while (window.isOpen())
     {
@@ -53,11 +49,11 @@ int main()
         window.clear();
         window.draw(arrow);
         window.draw(body);
-        cout<<arrow.getRotation()<<endl;
 
 
 
-  //      std::cout<<body.getRotation()<<std::endl;
+
+
         //
         // the following code is for rotation
         //
@@ -66,7 +62,7 @@ int main()
             Rot-=0.05;
             body.setRotation(Rot);
             arrow.setRotation(Rot);
-            if(body.getRotation()<290)
+            if(body.getRotation()<270)
                 toggle=1;
         }
         if(toggle == 1 && isKeyBoardPressed==false)
@@ -81,6 +77,8 @@ int main()
         //
         // Rotation code over
         //
+        if(arrow.getPosition().x>WINSIZEX+100 || arrow.getPosition().y>WINSIZEY+100)
+            system("pause");
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         isKeyBoardPressed=true;
@@ -88,21 +86,24 @@ int main()
         float angleInDeg=arrow.getRotation();
         float angleInRad= (M_PI*angleInDeg)/(180.f);
        xComp = initialVelocity*fabs(cos(angleInRad));
-        yComp = initialVelocity*fabs(sin(angleInRad));
-   // cout<<"The angle in Rad is  : "<<angleInRad<<endl<<angleInDeg<<endl;
-    cout<<"the xComponent is   "<<xComp<<"   and the y component is "<<yComp<<endl;
-    cout<<"thus the initial velocity must be "<<sqrt(xComp*xComp+yComp*yComp);
+        yComp = initialVelocityY*fabs(sin(angleInRad));
+      //  cout<<"x comp is "<<xComp<<"  y comp is "<<yComp<<"when angle is "<<arrow.getRotation()<<endl;
     }
+
 if(isKeyBoardPressed)
 {
-    xComp=0.1;
-    yComp=0.1;
-    arrow.move(xComp,-yComp+0.0001*n);
+
+
+   //temp comment arrow.move(xComp,-yComp+0.0001*n);
+   //tempmovementy= -yComp+0.001*n;
+   arrow.move(xComp,-yComp+0.009*n);
     n++;
+    cout<<xComp<<"  "<<yComp<<endl;
+
+
 }
-
-
-
+if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    return 0;
         window.display();
     }
 
