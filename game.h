@@ -182,26 +182,6 @@ if(isEnterPressed)
    arrow2.move(-xComp2,-yComp2+0.009*n2);
     n2++;
    }
-
-if(sf::Keyboard::isKeyPressed(sf::Keyboard::J))
-{
-
-    window.close();
-    MainMenu.create(sf::VideoMode(300,300),"mainu");
-    while (MainMenu.isOpen())
-    {
-        // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event evnt;
-        while (MainMenu.pollEvent(evnt))
-        {
-            // "close requested" event: we close the window
-            if (evnt.type == sf::Event::Closed)
-                MainMenu.close();
-        }
-    }
-
-}
-
 }
         }
     };
