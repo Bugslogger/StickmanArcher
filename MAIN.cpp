@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include<cstring>
+#include<SFML/Window.hpp>
 using namespace std;
 const int Bodyx=20;
 float Rot=359;
@@ -33,6 +34,8 @@ int main()
     int toggle2=0;
     bool RotatorDecider(sf::RectangleShape);
     sf::RenderWindow window(sf::VideoMode(WINSIZEX,WINSIZEY), "SFML works!");
+    //sf::RenderWindow win2(sf::VideoMode(300,300),"haha");
+    sf::Window MainMenu;
 
 
     sf::RectangleShape body(sf::Vector2f(Bodyx,Bodyy));
@@ -64,7 +67,12 @@ int main()
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
+                sf::RenderWindow win2(sf::VideoMode(300,300),"haha");
+                win2.display();
+                cout<<"okay this is closing";
                 window.close();
+            }
         }
 
         window.clear();
@@ -72,7 +80,7 @@ int main()
         window.draw(body);
         window.draw(body2);
         window.draw(arrow2);
-
+            window.display();
 
 
 
@@ -173,9 +181,25 @@ if(isEnterPressed)
     n2++;
    }
 
-if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-    return 0;
-        window.display();
+if(sf::Keyboard::isKeyPressed(sf::Keyboard::J))
+{
+
+    window.close();
+    MainMenu.create(sf::VideoMode(300,300),"mainu");
+    while (MainMenu.isOpen())
+    {
+        // check all the window's events that were triggered since the last iteration of the loop
+        sf::Event evnt;
+        while (MainMenu.pollEvent(evnt))
+        {
+            // "close requested" event: we close the window
+            if (evnt.type == sf::Event::Closed)
+                MainMenu.close();
+        }
+    }
+
+}
+
 }
     return 0;
     }
